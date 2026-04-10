@@ -9,10 +9,22 @@ error_reporting(E_ALL);
 
 session_start();
 
-function validateInputs($input_names){
+function renderMessages(){
+    $error = $message = '';
+    if (isset($_GET["error"])){
+	$error = $_GET["error"];
+    } else if (isset($_GET["message"])){
+	$message = $_GET["message"];
+    }
+    return '<span class="error">'.$error.'</span>
+    <span class="success-message">'.$message.'</span>';
+}
+function checkFieldsFilled($input_names){
     foreach ($input_names as $input_name){
+	echo $_POST[$input_name];
         if (!isset($_POST[$input_name]) or $_POST[$input_name] == ''){
             header("Location: ?error=Fill+in+all+fields");
+	    die();
         }
     }
 }
@@ -37,17 +49,17 @@ $show_login = true;
 if (isset($_SESSION['logged_in'])){ // Already logged in
     $show_login = false;
     if (isset($_POST['submit'])){
-        validateInputs(['title','description']);
+        checkFieldsFilled(['title','description','link']);
         submitPost();
     }
 } else if (isset($_POST['login'])){ // Pressed login but not yet successful
-    validateInputs(['password']);
+    checkFieldsFilled(['password']);
     global $password_hash;
-    if ($_POST['password'] == $password_hash){
+    if (password_verify($_POST['password'], $password_hash)){
         $_SESSION['logged_in'] = true;
-        header("Location: ?message=Logged+in+successfully");
+	header("Location: ?message=Logged+in+successfully");
     } else {
-        header("Location: ?error=Incorrect+password");
+	header("Location: ?error=Incorrect+password");
     }
 }
 ?>
@@ -57,20 +69,18 @@ if (isset($_SESSION['logged_in'])){ // Already logged in
     </head>
     <body>
 	<form class="feed-container" method="POST">
-<?php
-    if ($show_login){
-        echo '<h1>Submit Post</h1>
-	    <span class="error"><?php if (isset($_GET['error'])){ echo $_GET['error']; } ?></span>
-	    <span class="success-message"><?php if (isset($_GET['message'])){ echo $_GET['message']; } ?></span>
-	    <label for="pubDate-input">Date</label><input id="pubDate-input" name="pubDate" value="<?php echo date(DATE_RSS, time()); ?>" readonly>
-	    <label for="link-input">URL Handle</label><input id="link-input" name="link" placeholder="my-post"
-	    <label for="title-input">Title</label><input id="title-input" name="title" placeholder="Post Title">
-	    <label for="post-input">Post</label><textarea id="post-input" name="description" placeholder="This post will say yaddaaa yaaadaa"></textarea>
-	    <input name="submit" type="submit">;
-    } else {
-        echo '<label for="password-input">Password</label><input id="password-input" name="password">';
-    }
-?>
+	    <?php
+	    if (!$show_login){
+		echo '<h1>Submit Post</h1>'.renderMessages().'
+    <label for="pubDate-input">Date</label><input id="pubDate-input" name="pubDate" value="'.date(DATE_RSS, time()).'" readonly>
+    <label for="link-input">URL Handle</label><input id="link-input" name="link" placeholder="my-post"
+    <label for="title-input">Title</label><input id="title-input" name="title" placeholder="Post Title">
+    <label for="post-input">Post</label><textarea id="post-input" name="description" placeholder="This post will say yaddaaa yaaadaa"></textarea>
+    <input name="submit" type="submit" value="Post">';
+	    } else {
+		echo '<h1>Admin Login</h1>'.renderMessages().'<label for="password-input">Password</label><input id="password-input" name="password"><input name="login" type="submit" value="Log In">';
+	    }
+	    ?>
 	</form>
     </body>
 </html>
