@@ -16,31 +16,30 @@ function renderMessages(){
     } else if (isset($_GET["message"])){
 	$message = $_GET["message"];
     }
-    return '<span class="error">'.$error.'</span>
+    return '<span class="error">'.$error.'</span> // Will have display: none set if empty
     <span class="success-message">'.$message.'</span>';
 }
-function checkFieldsFilled($input_names){
-    foreach ($input_names as $input_name){
-	echo $_POST[$input_name];
-        if (!isset($_POST[$input_name]) or $_POST[$input_name] == ''){
-            header("Location: ?error=Fill+in+all+fields");
-	    die();
+function checkFieldsFilled($input_names){ // For an array of input names, check if the POST data was filled and not blank
+    foreach ($input_names as $input_name){ // For every input name in the array
+        if (!isset($_POST[$input_name]) or $_POST[$input_name] == ''){ // If the input wasn't set or was blank
+            header("Location: ?error=Fill+in+all+fields"); // Refresh with error message at the first failure
+	    die(); // Prevent further PHP processing
         }
     }
 }
-function postToXML(){
-    $xml_post = '<item>';
+function convertArticleToXML(){
+    $article_xml = '<item>';
     foreach(['title','link','description','pubDate'] as $tag){
-        $xml_post .= "<{$tag}>{$_POST[$tag]}</{$tag}>";
+        $article_xml .= "<{$tag}>{$_POST[$tag]}</{$tag}>"; // Use the input names as XML tag names
     }
-    $xml_post .= '</item>';
-    return $xml_post;
+    $article_xml .= '</item>';
+    return $article_xml;
 }
-function submitPost(){
+function submitArticle(){
     $xml = file_get_contents('../rss.xml');
-    $post_xml = postToXML();
+    $article_xml = convertArticleToXML();
     $new_post_position = strpos($xml, '<item>'); // Insert before the first (newest) item already there
-    $xml = substr_replace($xml, postToXML(), $new_post_position, 0); // Insert the new post into the XML
+    $xml = substr_replace($xml, convertArticleToXML(), $new_post_position, 0); // Insert the new post into the XML
     file_put_contents('../rss.xml', $xml);
     header("Location: ?message=Post+submitted+successfully");
 }
@@ -50,7 +49,7 @@ if (isset($_SESSION['logged_in'])){ // Already logged in
     $show_login = false;
     if (isset($_POST['submit'])){
         checkFieldsFilled(['title','description','link']);
-        submitPost();
+        submitArticle();
     }
 } else if (isset($_POST['login'])){ // Pressed login but not yet successful
     checkFieldsFilled(['password']);
