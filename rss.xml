@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<rss version='2.0'>
+  <channel>
+    <title>Hog Feed</title>
+    <item><title>reeb</title><link>tesstt</link><description>reeb time</description><pubDate>Fri, 10 Apr 2026 17:36:13 +0200</pubDate></item><item>
+      <title>RSS Tutorial</title>
+      <link>https://www.w3schools.com/xml/xml_rss.asp</link>
+      <description>New RSS tutorial on W3Schools</description>
+      <pubDate>Fri, 10 Apr 2026 13:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>XML Tutorial</title>
+      <link>https://www.w3schools.com/xml</link>
+      <description>New XML tutorial on W3Schools</description>
+      <pubDate>Fri, 10 Apr 2026 14:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

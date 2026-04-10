@@ -1,0 +1,57 @@
+:root {
+    --body-background-color: #eeeeee;
+    --feed-background-color: #f4f4f4;
+    --article-background-color: white;
+    --article-time-color: #666666;
+}
+body {
+    font-family: Helvetica;
+    margin: 0;
+    background-color: var(--body-background-color);
+}
+.feed-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: min(800px, 90vw);
+    margin: 2rem auto;
+    background-color: var(--feed-background-color);
+    padding: 1rem;
+    box-sizing: border-box;
+}
+h1 {
+    margin: 0.5rem 0 0;
+}
+.feed-link {
+    color: var(--article-time-color);
+}
+article {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background-color: var(--article-background-color);
+}
+article > * {
+    margin: 0;
+}
+article time {
+    color: var(--article-time-color);
+}
+
+/* Admin Page */
+input {
+    width: fit-content;
+}
+.error {
+    color: red;
+}
+.success-message {
+    color: green;
+}
+span:empty {
+    display: none;
+}
+label {
+    margin-bottom: -0.5rem;
+}
