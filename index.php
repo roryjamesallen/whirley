@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 function getFeedAsJSON(){
     $feed = array('title'=>'Blog Title','articles'=>[]); // Default values prevent errors when feed is empty
     $xml = file_get_contents('rss.xml'); // Read the XML file containing the RSS feed itself
-    $articles_regex = '/<item>[\s\S]*?<link>(?<link>.*?)<\/link>[\s\S]*?<title>(?<title>.*?)<\/title>[\s\S]*?<description>(?<description>.*?)<\/description>[\s\S]*?<pubDate>(?<date>.*?)<\/pubDate>[\s\S]*?<\/item>/'; 
+    $articles_regex = '/<item>[\s\S]*?<link>(?<link>.*?)<\/link>[\s\S]*?<title>(?<title>[\s\S]*?)<\/title>[\s\S]*?<description>(?<description>[\s\S]*?)<\/description>[\s\S]*?<pubDate>(?<date>.*?)<\/pubDate>[\s\S]*?<\/item>/';
     $title_regex = '/<channel>[\s\S]*?<title>(?<title>.*?)<\/title>[\s\S]*?<\/channel>/';
     foreach (array('articles'=>$articles_regex,'title'=>$title_regex) as $key=>$regex){
 	if (preg_match_all($regex, $xml, $matches, PREG_SET_ORDER)){ // As long as at least one match is found

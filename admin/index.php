@@ -31,7 +31,8 @@ function convertArticleToXML(){
     global $blog_url;
     $article_xml = "<item><link>{$blog_url}?article={$_POST['link']}</link>";
     foreach(['title','description','pubDate'] as $tag){
-        $article_xml .= "<{$tag}>{$_POST[$tag]}</{$tag}>"; // Use the input names as XML tag names
+	$content = htmlspecialchars($_POST[$tag], ENT_QUOTES); // Make sure there's no HTML content or other weirdness
+        $article_xml .= "<{$tag}>{$content}</{$tag}>"; // Use the input names as XML tag names
     }
     $article_xml .= '</item>';
     return $article_xml;
@@ -52,14 +53,14 @@ $show_login = true;
 if (isset($_SESSION['logged_in'])){ // Already logged in
     $show_login = false;
     if (isset($_POST['submit'])){
-        checkFieldsFilled(['title','description','link']);
-        submitArticle();
+	checkFieldsFilled(['title','description','link']);
+	submitArticle();
     }
 } else if (isset($_POST['login'])){ // Pressed login but not yet successful
     checkFieldsFilled(['password']);
     global $password_hash;
     if (password_verify($_POST['password'], $password_hash)){
-        $_SESSION['logged_in'] = true;
+	$_SESSION['logged_in'] = true;
 	header("Location: ?message=Logged+in+successfully");
     } else {
 	header("Location: ?error=Incorrect+password");
