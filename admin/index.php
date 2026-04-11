@@ -1,6 +1,6 @@
 <?php
 
-$blog_url = '';
+$blog_url = 'https://hogwild.uk/blog';
 $password_hash = '$2y$10$ZSHhR1CkeXoifijLc1fy3uUZOicCxnR8NJhsewwFdFrslFULpdpSy';
 
 ini_set('display_errors', '1');
@@ -16,8 +16,8 @@ function renderMessages(){
     } else if (isset($_GET["message"])){
 	$message = $_GET["message"];
     }
-    return '<span class="error">'.$error.'</span> // Will have display: none set if empty
-    <span class="success-message">'.$message.'</span>';
+    return '<span class="error">'.$error.'</span>
+    <span class="success-message">'.$message.'</span>'; // Will have display: none set if empty
 }
 function checkFieldsFilled($input_names){ // For an array of input names, check if the POST data was filled and not blank
     foreach ($input_names as $input_name){ // For every input name in the array
@@ -28,8 +28,9 @@ function checkFieldsFilled($input_names){ // For an array of input names, check 
     }
 }
 function convertArticleToXML(){
-    $article_xml = '<item>';
-    foreach(['title','link','description','pubDate'] as $tag){
+    global $blog_url;
+    $article_xml = "<item><link>{$blog_url}?article={$_POST['link']}</link>";
+    foreach(['title','description','pubDate'] as $tag){
         $article_xml .= "<{$tag}>{$_POST[$tag]}</{$tag}>"; // Use the input names as XML tag names
     }
     $article_xml .= '</item>';
@@ -39,6 +40,9 @@ function submitArticle(){
     $xml = file_get_contents('../rss.xml');
     $article_xml = convertArticleToXML();
     $new_post_position = strpos($xml, '<item>'); // Insert before the first (newest) item already there
+    if ($new_post_position == 0){ // No items yet, insert before end of channel
+	$new_post_position = strpos($xml, '</channel>');
+    }
     $xml = substr_replace($xml, convertArticleToXML(), $new_post_position, 0); // Insert the new post into the XML
     file_put_contents('../rss.xml', $xml);
     header("Location: ?message=Post+submitted+successfully");
