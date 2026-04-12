@@ -22,6 +22,9 @@ body {
 h1 {
     margin: 0.5rem 0 0;
 }
+a {
+    color: unset;
+}
 .feed-link {
     color: var(--article-time-color);
 }

@@ -1,6 +1,6 @@
 <?php
 
-$blog_url = 'https://hogwild.uk/blog';
+$blog_url = 'blog';
 $password_hash = '$2y$10$ZSHhR1CkeXoifijLc1fy3uUZOicCxnR8NJhsewwFdFrslFULpdpSy';
 
 ini_set('display_errors', '1');
