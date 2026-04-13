@@ -1,5 +1,16 @@
 # Whirley
 A very simple set of files to allow anyone to host their own RSS blog.
+## Quick Start
+1. SSH into your web server or open the terminal in cPanel (if you don't know how to do this and aren't confident trying, sorry this probably isn't the project for you!).
+2. Clone this repository using the directory name you want your feed to be accessible at e.g. to make a blog at `yoursite.com/blog`, navigate into your root directory (probably `public_html`) and run `git clone git@github.com:roryjamesallen/whirley.git blog`.
+3. Open `admin/index.php` in a text editor of your choice.
+4. Edit the value of `$blog_url` to the URL your blog will be accessed at (has to be the same as where it's cloned). This makes sure each post's URL in the feed XML is correct.
+5. Edit the value of `$password_hash` to the hash output from a site like [onlinephp.io](https://onlinephp.io/password-hash). This means the site never 'knows' your real password, and even vulnerabilities allowing direct download won't allow people to access the admin page.
+6. Save the file and exit.
+7. Open `rss.xml` in a text editor of your choice.
+8. Edit the `<title>Hog Feed</title>` tag to set the name of the blog itself.
+9. Save the file and exit.
+10. Check it all works by going to the blog URL you cloned into/set in the PHP file.
 ## The Files
 - `LICENSE.md` (The license this project is under)
 - `README.md` (This explanatory document)
@@ -7,12 +18,5 @@ A very simple set of files to allow anyone to host their own RSS blog.
 - `style.css` (How index.php looks, you can customise this to your heart's content)
 - `rss.xml` (The raw RSS feed that people can subscribe to, you shouldn't edit this manually!)
 - `/admin/index.php` (The login/editor for you to submit new posts or edit old ones)
-## Using Whirley
-The easiest way to use Whirley if you're familiar with Git is to clone this repository into the root directory e.g. `public_html` of your website files. If you want it to be accessible at a different url, just use that url in the clone command.
-For example:
-1. Access your web server's files using SSH or through the cPanel terminal
-2. `cd` into `public_html` or whatever the root directory is
-3. Run `git clone git@github.com:roryjamesallen/whirley.git blog`
-4. This will clone this repository into a new directory called `blog` meaning if you navigate to `yourwebsite.com/blog`, you will be served `index.php` from inside this repository, which will present a pretty HTML representation of the contents of `rss.xml`
 ### Using Individual Files
-You can also use individual files from this repository, for example only using `index.php` to display another RSS feed (you can even edit the `$feed_url` variable to set it to an external url), or only using `/admin/index.php` to edit an RSS feed which needs no HTML display or is displayed using another method.
+You can also use individual files from this repository, for example only using `index.php` to display an existing RSS feed or only using `admin/index.php` to all GUI posting to an RSS feed which needs no HTML display or is displayed using another method.
