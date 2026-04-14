@@ -20,3 +20,5 @@ A very simple set of files to allow anyone to host their own RSS blog. The files
 - `/admin/index.php` (The login/editor for you to submit new posts or edit old ones)
 ### Using Individual Files
 You can also use individual files from this repository, for example only using `index.php` to display an existing RSS feed or only using `admin/index.php` to all GUI posting to an RSS feed which needs no HTML display or is displayed using another method.
+### The Name
+Whirley is the part of [Macclesfield](https://en.wikipedia.org/wiki/Macclesfield) that I'm from, and I went to Whirley Primary School, I just thought it was a cute name!
