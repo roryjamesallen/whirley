@@ -14,10 +14,10 @@ A very simple set of files to allow anyone to host their own RSS blog. The files
 ## The Files
 - `LICENSE.md` (The license this project is under)
 - `README.md` (This explanatory document)
-- `index.php` (The page that people can read your blog at
-- `style.css` (How index.php looks, you can customise this to your heart's content)
-- `rss.xml` (The raw RSS feed that people can subscribe to, you shouldn't edit this manually!)
-- `/admin/index.php` (The login/editor for you to submit new posts or edit old ones)
+- `index.php` (The page that people can read your blog at in HTML form)
+- `style.css` (How index.php looks, you can customise this to your heart's content or edit `index.php` to use a stylesheet you already have)
+- `rss.xml` (The raw RSS feed that people can subscribe to, you shouldn't edit this manually other than to set the channel `<title>`!)
+- `/admin/index.php` (An HTML GUI to submit new posts through)
 ### Using Individual Files
 You can also use individual files from this repository, for example only using `index.php` to display an existing RSS feed or only using `admin/index.php` to all GUI posting to an RSS feed which needs no HTML display or is displayed using another method.
 ### The Name
