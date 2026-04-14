@@ -1,2 +1,0 @@
-RewriteEngine on
-RewriteRule ^(\d+)$ /?article=$1 [R=302,L]
