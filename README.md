@@ -4,7 +4,7 @@ A very simple set of files to allow anyone to host their own RSS blog. The files
 1. Download this repository as a `.zip` and extract it.
 3. Open `admin/index.php` in a text editor of your choice.
 4. Edit the value of `$blog_url` to the URL your blog will be accessed at (has to be the same as where it's actually placed in the later step). This makes sure each post's URL in the feed XML is correct.
-5. Edit the value of `$password_hash` to the hash output from a site like [onlinephp.io](https://onlinephp.io/password-hash). This means the site never 'knows' your real password, and even vulnerabilities allowing direct download won't allow people to access the admin page.
+5. Edit the value of `$password_hash` to the hashed version of your chosen password using a site like [onlinephp.io](https://onlinephp.io/password-hash). This means the site never 'knows' your real password, and even vulnerabilities allowing direct download won't allow people to access the admin page.
 6. Save the file and exit.
 7. Open `rss.xml` in a text editor of your choice.
 8. Edit the `<title>Blog</title>` tag to set the name of the blog itself e.g. `<title>Rory's Blog</title>`.
