@@ -7,7 +7,7 @@ A very simple set of files to allow anyone to host their own RSS blog. The files
 5. Edit the value of `$password_hash` to the hash output from a site like [onlinephp.io](https://onlinephp.io/password-hash). This means the site never 'knows' your real password, and even vulnerabilities allowing direct download won't allow people to access the admin page.
 6. Save the file and exit.
 7. Open `rss.xml` in a text editor of your choice.
-8. Edit the `<title>Hog Feed</title>` tag to set the name of the blog itself.
+8. Edit the `<title>Blog</title>` tag to set the name of the blog itself e.g. `<title>Rory's Blog</title>`.
 9. Save the file and exit.
 10. Copy (`scp` or other method) the files into the directory you want to access your feed at e.g. `public_html/blog` to access at `yoursite.com/blog`.
 11. Check it all works by going to the blog URL you cloned into/set in the PHP file.
